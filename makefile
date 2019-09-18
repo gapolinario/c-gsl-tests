@@ -14,6 +14,10 @@ invert.exe: invert.c
 exp.exe: exp.c
 	$(CC) $(CFLAGS) -o $@ $^ $(CLIBS)
 
+## wald.exe : Rejection sampling to generate RNG from Wald distribution
+wald.exe: wald.c
+	$(CC) $(CFLAGS) -o $@ $^ $(CLIBS)
+
 .PHONY : help
 help : makefile
 	@sed -n 's/^##//p' $<
