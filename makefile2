@@ -1,0 +1,12 @@
+CC=gcc
+CFLAGS=-O3 -w
+CLIBS=-lm -lgsl -lgslcblas
+
+cholesky: cross-cholesky.c
+	$(CC) $(CFLAGS) $^ $(CLIBS)
+
+cross: cross-correlation.c
+	$(CC) $(CFLAGS) $^ $(CLIBS)
+
+clean:
+	rm *.dat *.out
