@@ -2,6 +2,32 @@ CC=gcc
 CFLAGS= -O3 -Wall
 CLIBS=-lm -lgsl -lgslcblas
 
+# -Wall: all warnings
+# -w : no warnings
+
+vectors: vectorization-random.c
+	$(CC) $^ -lm
+	time -p ./a.out
+	@echo ""
+	$(CC) -O3 $^ -lm
+	time -p ./a.out
+	@echo ""
+	$(CC) -fopenmp $^ -lm
+	time -p ./a.out
+	@echo ""
+	$(CC) -O3 -fopenmp $^ -lm
+	time -p ./a.out
+	@echo ""
+
+cholesky: cross-cholesky.c
+	$(CC) $(CFLAGS) $^ $(CLIBS)
+
+cross: cross-correlation.c
+	$(CC) $(CFLAGS) $^ $(CLIBS)
+
+clean:
+	rm *.dat *.out
+
 ## random.exe : generates random numbers, test for the GSL RNG
 random.exe: random.c
 	$(CC) $(CFLAGS) -o $@ $^ $(CLIBS)
@@ -21,7 +47,3 @@ wald.exe: wald.c
 .PHONY : help
 help : makefile
 	@sed -n 's/^##//p' $<
-
-.PHONY : clean
-clean :
-	rm *.exe
