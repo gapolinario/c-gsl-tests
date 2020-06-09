@@ -8,8 +8,7 @@
 
 struct point
 {
-  double x;
-  double y;
+  double x,y;
 };
 
 int main(void) {
