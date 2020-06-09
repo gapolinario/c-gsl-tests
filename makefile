@@ -5,6 +5,8 @@ CLIBS=-lm -lgsl -lgslcblas
 # -Wall: all warnings
 # -w : no warnings
 
+
+
 vectors: vectorization-random.c
 	$(CC) $^ -lm
 	time -p ./a.out
@@ -18,6 +20,9 @@ vectors: vectorization-random.c
 	$(CC) -O3 -fopenmp $^ -lm
 	time -p ./a.out
 	@echo ""
+
+elliptic: elliptic.c
+	$(CC) $(CFLAGS) $^ $(CLIBS)
 
 cholesky: cross-cholesky.c
 	$(CC) $(CFLAGS) $^ $(CLIBS)

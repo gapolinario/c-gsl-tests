@@ -56,7 +56,7 @@ int main(){
 
     printf("Cholesky OK");
 
-    for(i=0;i<N;i==0){ zed[i] = gsl_ran_gaussian( rng, 1.0 ); }
+    for(i=0;i<N;i++){ zed[i] = gsl_ran_gaussian( rng, 1.0 ); }
 
     for(i=0;i<N;i++){
         eta[i] = 0;
