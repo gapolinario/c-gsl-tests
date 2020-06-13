@@ -5,7 +5,10 @@ CLIBS=-lm -lgsl -lgslcblas
 # -Wall: all warnings
 # -w : no warnings
 
-
+elliptic: elliptic.c
+	LD_LIBRARY_PATH=/usr/local/lib
+	export LD_LIBRARY_PATH
+	$(CC) $(CFLAGS) $^ $(CLIBS)
 
 vectors: vectorization-random.c
 	$(CC) $^ -lm
@@ -20,9 +23,6 @@ vectors: vectorization-random.c
 	$(CC) -O3 -fopenmp $^ -lm
 	time -p ./a.out
 	@echo ""
-
-elliptic: elliptic.c
-	$(CC) $(CFLAGS) $^ $(CLIBS)
 
 cholesky: cross-cholesky.c
 	$(CC) $(CFLAGS) $^ $(CLIBS)
