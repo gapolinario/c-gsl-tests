@@ -5,9 +5,9 @@ CLIBS=-lm -lgsl -lgslcblas
 # -Wall: all warnings
 # -w : no warnings
 
-elliptic: elliptic.c
-	LD_LIBRARY_PATH=/usr/local/lib
-	export LD_LIBRARY_PATH
+elliptic: elliptic-2.c
+	@echo "LD_LIBRARY_PATH=/usr/local/lib"
+	@echo "export LD_LIBRARY_PATH"
 	$(CC) $(CFLAGS) $^ $(CLIBS)
 
 vectors: vectorization-random.c
