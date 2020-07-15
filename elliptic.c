@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-#include <gsl/gsl_sf_ellint.h>
+//#include <gsl/gsl_sf_ellint.h>
 
 // Elliptic integrals: http://www.mymathlib.com/functions/elliptic_integrals.html
 // gsl documentation: https://www.gnu.org/software/gsl/doc/html/specfunc.html
@@ -28,37 +28,26 @@ int main(void) {
   // n eh o tamanho do vetor com a forma da gota
   // eh mais flexivel definir assim do que "struct point p[10]",
   // pq vc pode mudar o tamanho facilmente, se quiser
-  n = 10;
+  n = 1e7;
   nd = (double)n;
   p = (struct point *) malloc(n * sizeof(struct point));
 
   // Test using GSL
   for(i=0;i<n;i++){
-    p[i].x = gsl_sf_ellint_Kcomp(i/nd,1e-9);
-    p[i].y = gsl_sf_ellint_Ecomp(i/nd,1e-9);
-    //p[i].x = i/nd;
-    //p[i].y = sin(i/nd);
-  }
-
-  printf("First pass\n");
-  for(i=0;i<n;i++){
-    printf("%.9f ",p[i].x);
-    printf("%.9f\n",p[i].y);
-  }
-
-  // Test using web functions
-  for(i=0;i<n;i++){
+    // GSL
+    //p[i].x = gsl_sf_ellint_Kcomp(i/nd,1e-9);
+    //p[i].y = gsl_sf_ellint_Ecomp(i/nd,1e-9);
+    // Web functions
     p[i].x = Complete_Elliptic_Integral_First_Kind('k', (double)i/nd );
     p[i].y = Complete_Elliptic_Integral_Second_Kind('k', (double)i/nd );
   }
 
-  printf("\nSecond pass\n");
-  for(i=0;i<n;i++){
+  /*for(i=0;i<n;i++){
     printf("%.9f ",p[i].x);
     printf("%.9f\n",p[i].y);
-  }
+  }*/
 
-  //writelist(p,n,0);
+  writelist(p,n,0);
 
   free(p);
 

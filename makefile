@@ -5,7 +5,7 @@ CLIBS=-lm -lgsl -lgslcblas
 # -Wall: all warnings
 # -w : no warnings
 
-elliptic: elliptic-2.c
+elliptic: elliptic-3.c
 	@echo "LD_LIBRARY_PATH=/usr/local/lib"
 	@echo "export LD_LIBRARY_PATH"
 	$(CC) $(CFLAGS) $^ $(CLIBS)

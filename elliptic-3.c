@@ -13,8 +13,8 @@ struct point
 };
 
 inline void writelist(struct point *y, int size, int thisrun);
-double Complete_Elliptic_Integral_First_Kind(char arg, double x);
-double Complete_Elliptic_Integral_Second_Kind(char arg, double x);
+double Complete_Elliptic_Integral_First_Kind(double x);
+double Complete_Elliptic_Integral_Second_Kind(double x);
 
 int main(void) {
 
@@ -30,8 +30,8 @@ int main(void) {
   p = (struct point *) malloc(n * sizeof(struct point));
 
  for(i=0;i<n;i++){
-    p[i].x = Complete_Elliptic_Integral_First_Kind('k', (double)i/nd );
-    p[i].y = Complete_Elliptic_Integral_Second_Kind('k', (double)i/nd );
+    p[i].x = Complete_Elliptic_Integral_First_Kind((double)i/nd );
+    p[i].y = Complete_Elliptic_Integral_Second_Kind((double)i/nd );
   }
 
   /*for(i=0;i<n;i++){
@@ -135,7 +135,7 @@ inline void writelist(struct point *y, int size, int thisrun) {
 static const long double PI_2 =  1.5707963267948966192313216916397514L; // pi/2
 static const long double PI_4 =  0.7853981633974483096156608458198757L; // pi/4
 
-double Complete_Elliptic_Integral_First_Kind(char arg, double x)
+double Complete_Elliptic_Integral_First_Kind(double x)
 {
    long double k;          // modulus 
    long double m;          // parameter 
@@ -146,19 +146,8 @@ double Complete_Elliptic_Integral_First_Kind(char arg, double x)
 
    if ( x == 0.0 ) return M_PI_2;
 
-   switch (arg) {
-      case 'k': k = fabsl((long double) x);
-                m = k * k;
-                break;
-      case 'm': m = (long double) x;
-                k = sqrtl(fabsl(m));
-                break;
-      case 'a': k = sinl((long double)x);
-                m = k * k;
-                break;
-      default:  k = fabsl((long double) x);
-                m = k * k;
-   }
+   k = fabsl((long double) x);
+   m = k*k;
 
    if ( m == 1.0 ) return DBL_MAX;
 
@@ -244,7 +233,7 @@ double Complete_Elliptic_Integral_First_Kind(char arg, double x)
 //     printf("E(m) = %12.6f where m = %12.6f\n",E, m);                       //
 ////////////////////////////////////////////////////////////////////////////////
 
-double Complete_Elliptic_Integral_Second_Kind(char arg, double x)
+double Complete_Elliptic_Integral_Second_Kind(double x)
 {
    long double k;      // modulus
    long double m;      // the parameter of the elliptic function m = modulus^2
@@ -257,20 +246,9 @@ double Complete_Elliptic_Integral_Second_Kind(char arg, double x)
 
    if ( x == 0.0 ) return M_PI_2;
 
-   switch (arg) {
-      case 'k': k = fabsl((long double) x);
-                m = k * k;
-                break;
-      case 'm': m = (long double) x;
-                k = sqrtl(fabsl(m));
-                break;
-      case 'a': k = sinl((long double)x);
-                m = k * k;
-                break;
-      default:  k = fabsl((long double) x);
-                m = k * k;
-   }
-
+   k = fabsl((long double) x);
+   m = k * k;
+      
    if ( m == 1.0 ) return 1.0;
 
    a = 1.0L;
